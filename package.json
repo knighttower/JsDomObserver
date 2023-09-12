@@ -1,10 +1,11 @@
 {
     "name": "@knighttower/js-dom-observer",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "main": "src/DomObserver.ts",
     "jsdeliver": "dist/DomObserver.js",
     "unpkg": "dist/DomObserver.js",
     "browser": "dist/DomObserver.js",
+    "module": "dist/DomObserver.js",
     "license": "MIT",
     "description": "Convert Object to proxy to protect the objects",
     "homepage": "https://github.com/knighttower/JsDomObserver",

@@ -11,9 +11,12 @@
 yarn add @knighttower/js-dom-observer
 ```  
 
-
 ```typescript
-import DomObserver, { addOnNodeChange, removeOnNodeChange, cleanup } from './DomObserver';
+import DomObserver from '@knighttower/js-dom-observer';
+```  
+or only some modules
+```typescript
+import { addOnNodeChange, removeOnNodeChange } from '@knighttower/js-dom-observer';
 ```
 
 [![NPM published](https://github.com/knighttower/JsDomObserver/actions/workflows/to-npm.yml/badge.svg)](https://github.com/knighttower/JsDomObserver/actions/workflows/to-npm.yml)  
