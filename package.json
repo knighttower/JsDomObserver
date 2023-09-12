@@ -1,6 +1,6 @@
 {
     "name": "@knighttower/js-dom-observer",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "main": "src/DomObserver.ts",
     "jsdeliver": "dist/DomObserver.js",
     "unpkg": "dist/DomObserver.js",

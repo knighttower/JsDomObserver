@@ -16,6 +16,8 @@ yarn add @knighttower/js-dom-observer
 import DomObserver, { addOnNodeChange, removeOnNodeChange, cleanup } from './DomObserver';
 ```
 
+[![NPM published](https://github.com/knighttower/JsDomObserver/actions/workflows/to-npm.yml/badge.svg)](https://github.com/knighttower/JsDomObserver/actions/workflows/to-npm.yml)  
+[![release version](https://github.com/knighttower/JsDomObserver/actions/workflows/pre-release.yml/badge.svg)](https://github.com/knighttower/JsDomObserver/actions/workflows/pre-release.yml)
 ## API
 
 ### `addOnNodeChange(id: string, callback: () => void): void`
