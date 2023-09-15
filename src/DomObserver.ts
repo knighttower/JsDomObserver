@@ -56,21 +56,23 @@ const cleanup = (): void => {
  * @return {MutationObserver}
  */
 (() => {
-    const callback = (mutationList: MutationRecord[], observer: MutationObserver) => {
-        for (const mutation of mutationList) {
-            if (mutation.type === 'childList') {
-                for (const id in executeOnNodeChanged) {
-                    executeOnNodeChanged[id]();
+    if (window) {
+        const callback = (mutationList: MutationRecord[], observer: MutationObserver) => {
+            for (const mutation of mutationList) {
+                if (mutation.type === 'childList') {
+                    for (const id in executeOnNodeChanged) {
+                        executeOnNodeChanged[id]();
+                    }
                 }
             }
-        }
-    };
-    const config: MutationObserverInit = {
-        childList: true,
-        subtree: true,
-    };
-    const observer = new MutationObserver(callback);
-    observer.observe(document.body, config);
+        };
+        const config: MutationObserverInit = {
+            childList: true,
+            subtree: true,
+        };
+        const observer = new MutationObserver(callback);
+        observer.observe(document.body, config);
+    }
 })();
 
 const DomObserver = {
