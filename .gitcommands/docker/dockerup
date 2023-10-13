@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# This script is used to start a docker container
+
+rootDir="$(pwd)"
+
+# Prompt function for user input with colored message
+source "$rootDir/.bash-helpers/utility-functions.sh"
+
+# Get container name from user or leave blank to use default
+containerName="${1:-}"
+
+# stop all containers before building
+docker kill $(docker ps -q) >/dev/null 2>&1
+
+while true; do
+    containerOption=$(promptInput "--------- START (type S) OR CREATE (type C or press [enter]) A CONTAINER?")
+
+    case $containerOption in
+    [Ss]*)
+        git dockercmds --start
+        break
+        ;;
+    [Cc]* | "")
+        # Get container name from user
+        while [[ -z "$name" ]]; do
+            if [[ -z "$containerName" ]]; then
+                name=$(promptInput "Enter container name to use ")
+            else
+                name=$containerName
+            fi
+        done
+
+        rebuild=$(promptInput "Rebuild Images? (Y or N/none)")
+
+        if [[ "$rebuild" =~ ^[Yy]$ ]]; then
+            docker-compose build --no-cache
+        fi
+
+        docker-compose -p "$name" up -d
+
+        break
+        ;;
+    *) echo "Please answer yes or no." ;;
+    esac
+done
+
+echo "containerName=$name"

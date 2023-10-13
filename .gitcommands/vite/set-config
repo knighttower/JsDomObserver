@@ -1,0 +1,83 @@
+#!/bin/bash
+
+# Initialize Vite config file
+config_file="vite.config.js"
+
+# Create the file and add initial imports and config
+echo "import { defineConfig } from 'vite';" > $config_file
+echo "import path from 'path';" >> $config_file
+echo "import dotenv from 'dotenv';" >> $config_file
+
+# Loop until a valid input is given for using Vue
+while true; do
+    read -p "Do you want to use Vue for the project? (Y/y/N/n/empty): " use_vue
+
+    # Convert the input to lowercase to make the comparison case-insensitive
+    use_vue=$(echo "$use_vue" | tr '[:upper:]' '[:lower:]')
+
+    case $use_vue in
+    [Yy]*)
+        use_vue=true
+        echo "import vue from '@vitejs/plugin-vue';" >> $config_file  # Add Vue import here
+        break
+        ;;
+    [Nn]* | "")
+        use_vue=false
+        echo "Using vanilla JS."
+        break
+        ;;
+    *)
+        echo "Invalid input. Please enter Y/y/N/n or leave empty."
+        ;;
+    esac
+done
+
+echo "" >> $config_file
+echo "export default defineConfig({" >> $config_file
+
+# If user chose Vue, add Vue-specific configs
+if [ "$use_vue" == "true" ]; then
+    echo "  plugins: [vue()]," >> $config_file
+fi
+
+# Add common configs
+echo "  resolve: {" >> $config_file
+echo "    alias: {" >> $config_file
+echo "      '@': path.resolve(__dirname, 'src')," >> $config_file
+echo "    }," >> $config_file
+echo "    modules: ['node_modules', path.resolve(__dirname, 'src'), path.resolve(__dirname, 'packages/*')]," >> $config_file
+echo "  }," >> $config_file
+echo "  ssr: false," >> $config_file
+echo "  publicDir: path.resolve(__dirname, 'public')," >> $config_file
+
+# Close the config
+echo "});" >> $config_file
+
+# Print message to indicate that the file is created
+echo "Vite config file has been created."
+
+# Ask to install Vue and dotenv packages if Vue was selected
+if [ "$use_vue" == "true" ]; then
+    while true; do
+        read -p "Do you want to install Vue and dotenv packages? (Y/y/N/n): " install_vue
+
+        # Convert the input to lowercase to make the comparison case-insensitive
+        install_vue=$(echo "$install_vue" | tr '[:upper:]' '[:lower:]')
+
+        case $install_vue in
+        [Yy]*)
+            yarn add vue @vitejs/plugin-vue dotenv --dev
+            echo "Vue and dotenv packages have been installed."
+            break
+            ;;
+        [Nn]* | "")
+            echo "Vue and dotenv packages will not be installed."
+            break
+            ;;
+        *)
+            echo "Invalid input. Please enter Y/y/N/n."
+            ;;
+        esac
+    done
+fi
+
