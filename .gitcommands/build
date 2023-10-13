@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# Function to check if npm script exists
+check_npm_script() {
+    local script_name=$1
+    npm run-script | grep -q "$script_name"
+    return $?
+}
+
+# Check if npm is installed
+if command -v npm &>/dev/null; then
+    # Check if the "build" script is available
+    if check_npm_script "build"; then
+        npm run build
+    else
+        # Check if the "production" script is available
+        if check_npm_script "production"; then
+            npm run production
+        else
+            echo "Neither 'build' nor 'production' npm scripts are available."
+        fi
+    fi
+else
+    echo "npm is not installed."
+fi

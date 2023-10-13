@@ -1,6 +1,6 @@
 {
     "name": "@knighttower/js-dom-observer",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "main": "src/DomObserver.ts",
     "jsdeliver": "dist/DomObserver.js",
     "unpkg": "dist/DomObserver.js",
@@ -35,6 +35,5 @@
         "ts-node": "^10.9.1",
         "typescript": "^5.2.2"
     },
-    "dependencies": {
-    }
+    "dependencies": {}
 }
